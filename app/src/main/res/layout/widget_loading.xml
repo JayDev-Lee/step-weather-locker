@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="6dp">
+    <FrameLayout android:layout_width="240dp" android:layout_height="240dp">
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/widget_preview_ring" android:importantForAccessibility="no"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="오늘 걸음" android:textColor="@color/widget_text" android:textSize="14sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/widget_text" android:textSize="56sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="목표 10,000보" android:textColor="@color/widget_accent" android:textSize="12sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="활동 칼로리 · 이동 거리" android:textColor="@color/widget_text" android:textSize="12sp"/>
+        </LinearLayout>
+    </FrameLayout>
+    <TextView android:layout_width="240dp" android:layout_height="48dp" android:gravity="center" android:background="@drawable/widget_footer" android:text="한걸음 · 불러오는 중…" android:textColor="@color/widget_text" android:textSize="12sp"/>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <queries><package android:name="com.sec.android.app.shealth" /></queries>
+    <application android:allowBackup="false" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/Theme.StepCounter">
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+        </activity>
+        <activity android:name=".locker.LockerSettingsActivity" android:exported="false" />
+        <activity android:name=".locker.LockerActivity" android:exported="false"
+            android:showWhenLocked="true" android:excludeFromRecents="true"
+            android:launchMode="singleTask" android:taskAffinity="com.jaydev.stepcounter.locker" />
+        <service android:name=".locker.LockerService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="User-enabled lock screen dashboard. Observes screen on while enabled and provides an ongoing notification with a stop action." />
+        </service>
+        <receiver android:name=".widget.StepsWidgetReceiver" android:exported="false" android:label="@string/widget_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/steps_widget"/>
+        </receiver>
+        <receiver android:name=".widget.LargeStepsWidgetReceiver" android:exported="false" android:label="@string/widget_large_name">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/steps_widget_large"/>
+        </receiver>
+    </application>
+</manifest>
