@@ -29,3 +29,10 @@ google-services.json
 # Local review history and prototypes
 /verification/
 /design/
+
+# Android Studio signed APK exports and local signing inputs
+/app/release/
+/release-secrets/
+*.p12
+*.pem
+__pycache__/

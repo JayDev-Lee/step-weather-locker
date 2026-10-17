@@ -29,14 +29,14 @@ Android SDK Platform 37, JDK 17 이상의 빌드 환경이 필요합니다. Grad
 app/libs/samsung-health-data-api-1.1.0.aar
 ```
 
-SDK AAR은 저장소에 포함하지 않습니다. [삼성 SDK 안내](https://developer.samsung.com/health/data/overview.html)와 [로컬 라이브러리 안내](app/libs/README.md)를 참고하세요. SDK가 없으면 빌드가 실패합니다.
+SDK AAR 원본은 저장소에 포함하지 않습니다. CI용 암호화본만 보관합니다. [삼성 SDK 안내](https://developer.samsung.com/health/data/overview.html)와 [로컬 라이브러리 안내](app/libs/README.md)를 참고하세요. SDK가 없으면 빌드가 실패합니다.
 
 ```sh
 ./gradlew :app:assembleDebug
 ./gradlew :app:testDebugUnitTest :app:lintDebug
 ```
 
-APK는 `app/build/outputs/apk/debug/app-debug.apk`에 생성됩니다. Release 빌드에는 배포용 서명 설정이 별도로 필요합니다. APK, 서명 키, 로컬 SDK 경로 및 빌드 캐시는 Git에서 제외합니다.
+APK는 `app/build/outputs/apk/debug/app-debug.apk`에 생성됩니다. 태그를 통한 서명 Release APK 배포는 [릴리즈 설정](docs/releases.md)을 따릅니다. 서명 정보 없이 Release 빌드를 실행하면 실패합니다. APK, 서명 키, 로컬 SDK 경로 및 빌드 캐시는 Git에서 제외합니다.
 
 ## 삼성 헬스 연결
 

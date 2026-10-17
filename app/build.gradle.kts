@@ -7,6 +7,14 @@ plugins {
 // The licensed Samsung SDK is supplied locally, never downloaded from an unofficial mirror.
 val samsungSdk = file("libs/samsung-health-data-api-1.1.0.aar")
 
+// Passwords are read only from the process environment, never Gradle properties or source.
+val signingEnvironment = listOf(
+    "ANDROID_KEYSTORE_PATH", "ANDROID_KEYSTORE_PASSWORD", "ANDROID_KEY_ALIAS", "ANDROID_KEY_PASSWORD"
+).associateWith { providers.environmentVariable(it).orNull }
+val hasReleaseSigning = signingEnvironment.values.all { !it.isNullOrBlank() }
+val releaseVersionName = providers.environmentVariable("RELEASE_VERSION_NAME").orNull
+val releaseVersionCode = providers.environmentVariable("RELEASE_VERSION_CODE").orNull
+
 android {
     namespace = "com.jaydev.stepcounter"
     compileSdk = 37
@@ -14,13 +22,24 @@ android {
         applicationId = "com.jaydev.stepcounter"
         minSdk = 29
         targetSdk = 37
-        versionCode = 9
-        versionName = "1.2.0"
+        versionCode = releaseVersionCode?.toInt() ?: 9
+        versionName = releaseVersionName ?: "1.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("boolean", "SAMSUNG_SDK_INCLUDED", "true")
     }
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("distribution") {
+                storeFile = file(signingEnvironment.getValue("ANDROID_KEYSTORE_PATH")!!)
+                storePassword = signingEnvironment.getValue("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = signingEnvironment.getValue("ANDROID_KEY_ALIAS")
+                keyPassword = signingEnvironment.getValue("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
+            if (hasReleaseSigning) signingConfig = signingConfigs.getByName("distribution")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -62,4 +81,18 @@ tasks.register("requireSamsungSdk") {
 }
 tasks.configureEach {
     if (name == "preBuild") dependsOn("requireSamsungSdk")
+}
+
+// Fail closed: a release must never silently produce an unsigned APK.
+val requireReleaseSigning = tasks.register("requireReleaseSigning") {
+    doLast {
+        val missing = signingEnvironment.filterValues { it.isNullOrBlank() }.keys
+        check(missing.isEmpty()) { "Missing release signing environment: ${missing.joinToString()}" }
+        check(file(signingEnvironment.getValue("ANDROID_KEYSTORE_PATH")!!).isFile) {
+            "Release keystore file does not exist."
+        }
+    }
+}
+tasks.configureEach {
+    if (name == "preReleaseBuild") dependsOn(requireReleaseSigning)
 }
