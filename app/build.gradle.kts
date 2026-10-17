@@ -14,8 +14,8 @@ android {
         applicationId = "com.jaydev.stepcounter"
         minSdk = 29
         targetSdk = 37
-        versionCode = 8
-        versionName = "1.1.5"
+        versionCode = 9
+        versionName = "1.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("boolean", "SAMSUNG_SDK_INCLUDED", "true")
     }

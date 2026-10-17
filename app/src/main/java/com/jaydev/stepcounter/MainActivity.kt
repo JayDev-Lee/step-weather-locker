@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                         val requested = GlanceAppWidgetManager(this@MainActivity)
                             .requestPinGlanceAppWidget(StepsWidgetReceiver::class.java)
                         if (!requested) android.widget.Toast.makeText(this@MainActivity,
-                            "홈 화면을 길게 눌러 위젯 목록에서 한걸음을 추가해주세요", android.widget.Toast.LENGTH_LONG).show()
+                            "홈 화면을 길게 눌러 위젯 목록에서 하루링을 추가해주세요", android.widget.Toast.LENGTH_LONG).show()
                     }
                 },
             )

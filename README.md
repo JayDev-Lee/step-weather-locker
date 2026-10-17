@@ -1,11 +1,11 @@
-# Step Weather Locker · 한걸음
+# 하루링 · Step Weather Locker
 
 삼성 헬스의 걸음 수와 현재 위치의 날씨를 홈 위젯과 별도 잠금화면에 표시하는 Android 앱입니다.
 
 - 패키지: `com.jaydev.stepcounter`
 - Kotlin / Jetpack Compose / Jetpack Glance
 - minSdk 29, compileSdk / targetSdk 37
-- 현재 버전: **1.1.5**
+- 현재 버전: **1.2.0**
 
 ## 기능
 

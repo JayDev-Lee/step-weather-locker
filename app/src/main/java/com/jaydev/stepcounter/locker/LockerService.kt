@@ -69,7 +69,7 @@ class LockerService : Service() {
         val open = PendingIntent.getActivity(this, 1, Intent(this, LockerActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val stop = PendingIntent.getService(this, 2, Intent(this, LockerService::class.java).setAction(ACTION_STOP), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(android.R.drawable.ic_menu_view).setContentTitle("한걸음 잠금화면 모드")
+            .setSmallIcon(com.jaydev.stepcounter.R.drawable.ic_haruring_notification).setContentTitle("하루링 잠금화면 모드")
             .setContentText("화면을 켜면 표시 · 눌러서 열기").setContentIntent(open)
             .setOngoing(true).setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
             .addAction(0, "모드 끄기", stop).build()
